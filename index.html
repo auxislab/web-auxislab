@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Auxis Lab | El futuro del cultivo de interior</title>
+    <!-- Google Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        /* ==========================================================================
+           VARIABLES Y RESET
+           ========================================================================== */
+        :root {
+            --bg-color: #171b22;
+            --text-primary: #ffffff;
+            --text-secondary: #a0aec0;
+            --accent-color: #48bb78;
+            --accent-hover: #3da567;
+            --input-bg: rgba(255, 255, 255, 0.05);
+            --border-color: rgba(255, 255, 255, 0.1);
+            --font-family: 'Inter', sans-serif;
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: var(--font-family);
+            background-color: var(--bg-color);
+            color: var(--text-primary);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            overflow-x: hidden;
+        }
+
+        /* ==========================================================================
+           UTILIDADES Y LAYOUT
+           ========================================================================== */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        section {
+            padding: 120px 0;
+        }
+
+        @media (max-width: 768px) {
+            section {
+                padding: 80px 0;
+            }
+        }
+
+        .text-center {
+            text-align: center;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 600;
+            letter-spacing: -0.02em;
+            margin-bottom: 24px;
+        }
+
+        .section-subtitle {
+            font-size: 1.125rem;
+            color: var(--text-secondary);
+            max-width: 700px;
+            margin: 0 auto 64px auto;
+            font-weight: 400;
+        }
+
+        /* Botones */
+        .btn {
+            display: inline-block;
+            background-color: var(--accent-color);
+            color: #ffffff;
+            padding: 16px 32px;
+            border-radius: 8px;
+            font-weight: 500;
+            text-decoration: none;
+            border: none;
+            cursor: pointer;
+            transition: var(--transition);
+            font-size: 1rem;
+        }
+
+        .btn:hover {
+            background-color: var(--accent-hover);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(72, 187, 120, 0.2);
+        }
+
+        .btn-outline {
+            background-color: transparent;
+            border: 1px solid var(--border-color);
+            color: var(--text-primary);
+        }
+
+        .btn-outline:hover {
+            border-color: var(--text-primary);
+            background-color: rgba(255, 255, 255, 0.05);
+            box-shadow: none;
+        }
+
+        /* ==========================================================================
+           HERO SECTION
+           ========================================================================== */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            text-align: center;
+            position: relative;
+            padding: 40px 24px;
+        }
+
+        /* Efecto de luz de fondo sutil */
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 30%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(72, 187, 120, 0.08) 0%, rgba(23, 27, 34, 0) 70%);
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        .hero-logo {
+            width: 80px;
+            height: 80px;
+            margin-bottom: 40px;
+            border-radius: 16px;
+            object-fit: cover;
+            background-color: var(--input-bg);
+            border: 1px solid var(--border-color);
+            /* Animación suave de entrada */
+            animation: fadeInDown 1s ease forwards;
+        }
+
+        .hero h1 {
+            font-size: clamp(2.5rem, 5vw, 4.5rem);
+            font-weight: 700;
+            letter-spacing: -0.03em;
+            line-height: 1.1;
+            margin-bottom: 24px;
+            max-width: 900px;
+            background: linear-gradient(180deg, #FFFFFF 0%, rgba(255, 255, 255, 0.7) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: fadeInUp 1s ease forwards 0.2s;
+            opacity: 0;
+        }
+
+        .hero p {
+            font-size: clamp(1.125rem, 2vw, 1.35rem);
+            color: var(--text-secondary);
+            max-width: 700px;
+            margin: 0 auto 48px auto;
+            animation: fadeInUp 1s ease forwards 0.4s;
+            opacity: 0;
+        }
+
+        .hero .cta-wrapper {
+            animation: fadeInUp 1s ease forwards 0.6s;
+            opacity: 0;
+        }
+
+        /* ==========================================================================
+           SECCIÓN GREEN KORE (PRODUCTO)
+           ========================================================================== */
+        .features {
+            background-color: rgba(255, 255, 255, 0.02);
+            border-top: 1px solid var(--border-color);
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+            margin-top: 64px;
+        }
+
+        .feature-card {
+            background: var(--bg-color);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 40px;
+            transition: var(--transition);
+        }
+
+        .feature-card:hover {
+            border-color: rgba(72, 187, 120, 0.3);
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+        }
+
+        .feature-icon {
+            width: 48px;
+            height: 48px;
+            background-color: rgba(72, 187, 120, 0.1);
+            color: var(--accent-color);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 24px;
+        }
+
+        .feature-icon svg {
+            width: 24px;
+            height: 24px;
+        }
+
+        .feature-card h3 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 16px;
+        }
+
+        .feature-card p {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            line-height: 1.7;
+        }
+
+        /* ==========================================================================
+           SECCIÓN SOBRE NOSOTROS
+           ========================================================================== */
+        .about {
+            text-align: center;
+        }
+
+        .about p {
+            font-size: 1.125rem;
+            color: var(--text-secondary);
+            max-width: 800px;
+            margin: 0 auto;
+            line-height: 1.8;
+        }
+
+        /* ==========================================================================
+           SECCIÓN CONTACTO Y FOOTER
+           ========================================================================== */
+        .contact {
+            background: linear-gradient(to bottom, transparent, rgba(255, 255, 255, 0.02));
+            padding-bottom: 60px;
+        }
+
+        .contact-form {
+            max-width: 500px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.03);
+            padding: 40px;
+            border-radius: 16px;
+            border: 1px solid var(--border-color);
+        }
+
+        .form-group {
+            margin-bottom: 24px;
+        }
+
+        .form-control {
+            width: 100%;
+            background-color: var(--input-bg);
+            border: 1px solid var(--border-color);
+            color: var(--text-primary);
+            padding: 16px;
+            border-radius: 8px;
+            font-family: var(--font-family);
+            font-size: 1rem;
+            transition: var(--transition);
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--accent-color);
+            background-color: rgba(255, 255, 255, 0.08);
+        }
+
+        textarea.form-control {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        .btn-submit {
+            width: 100%;
+            background-color: transparent;
+            border: 1px solid var(--accent-color);
+            color: var(--accent-color);
+            font-family: var(--font-family);
+        }
+
+        .btn-submit:hover {
+            background-color: var(--accent-color);
+            color: #ffffff;
+        }
+
+        footer {
+            text-align: center;
+            padding: 40px 24px;
+            border-top: 1px solid var(--border-color);
+            color: var(--text-secondary);
+            font-size: 0.875rem;
+        }
+
+        /* ==========================================================================
+           ANIMACIONES
+           ========================================================================== */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- ==========================================================================
+         CABECERA (Hero Section)
+         ========================================================================== -->
+    <header class="hero">
+        <!-- Reemplazar el src con el archivo real cuando esté disponible. Se ha creado un marcador visual SVG por defecto. -->
+        <img src="Logotipo cuadrado.jpg" alt="Auxis Lab Logo" class="hero-logo"
+            onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'80\' height=\'80\' viewBox=\'0 0 80 80\'><rect width=\'80\' height=\'80\' fill=\'%23171b22\'/><path d=\'M40 20 L60 60 L20 60 Z\' fill=\'%2348bb78\' opacity=\'0.8\'/><circle cx=\'40\' cy=\'45\' r=\'8\' fill=\'%23ffffff\'/></svg>'">
+
+        <h1>El futuro del cultivo de interior, bajo control.</h1>
+        <p>En Auxis Lab desarrollamos soluciones tecnológicas avanzadas para la automatización y gestión integral de
+            cultivos indoor.</p>
+
+        <div class="cta-wrapper">
+            <a href="#green-kore" class="btn">Descubre Green Kore</a>
+        </div>
+    </header>
+
+    <!-- ==========================================================================
+         EL PRODUCTO (Sección Green Kore)
+         ========================================================================== -->
+    <section id="green-kore" class="features">
+        <div class="container">
+            <div class="text-center">
+                <h2 class="section-title">Green Kore: Control integral e inteligente</h2>
+                <p class="section-subtitle">Nuestro sistema bandera unifica el monitoreo y la gestión de tus cultivos en
+                    una sola plataforma, optimizando recursos y maximizando el rendimiento.</p>
+            </div>
+
+            <div class="features-grid">
+                <!-- Bloque 1: Automatización Total -->
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                        </svg>
+                    </div>
+                    <h3>Automatización Total</h3>
+                    <p>Control de clima, iluminación y consumo eléctrico programable y en tiempo real.</p>
+                </div>
+
+                <!-- Bloque 2: Monitoreo Inteligente -->
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+                        </svg>
+                    </div>
+                    <h3>Monitoreo Inteligente</h3>
+                    <p>Sensores de precisión que analizan cada variable crítica de tu cultivo para la optimización total
+                        del clima de tu cultivo.</p>
+                </div>
+
+                <!-- Bloque 3: Eficiencia y Rendimiento -->
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M13 10V3L4 14h7v7l9-11h-7z" />
+                        </svg>
+                    </div>
+                    <h3>Eficiencia y Rendimiento</h3>
+                    <p>Diseñado para reducir el consumo de recursos y asegurar cosechas óptimas.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==========================================================================
+         SOBRE NOSOTROS (Sección Auxis Lab)
+         ========================================================================== -->
+    <section class="about container">
+        <h2 class="section-title">Innovación tecnológica con propósito</h2>
+        <p>En Auxis Lab fusionamos ingeniería, software y agricultura para resolver los desafíos del cultivo en
+            interiores. Creemos que la tecnología debe ser intuitiva, eficiente y, sobre todo, capaz de devolver el
+            control total al cultivador. Con Green Kore, transformamos datos complejos en decisiones automatizadas.</p>
+    </section>
+
+    <!-- ==========================================================================
+         CONTACTO Y CIERRE
+         ========================================================================== -->
+    <section class="contact">
+        <div class="container">
+            <div class="text-center">
+                <h3 class="section-title" style="font-size: 2rem;">Hablemos</h3>
+                <p class="section-subtitle">¿Quieres optimizar tu instalación o saber más sobre Green Kore? Déjanos un
+                    mensaje.</p>
+            </div>
+
+            <form class="contact-form">
+                <div class="form-group">
+                    <input type="text" class="form-control" placeholder="Nombre" required>
+                </div>
+                <div class="form-group">
+                    <input type="email" class="form-control" placeholder="Email" required>
+                </div>
+                <div class="form-group">
+                    <textarea class="form-control" placeholder="Mensaje" required></textarea>
+                </div>
+                <button type="submit" class="btn btn-submit">Enviar mensaje</button>
+            </form>
+
+            <!-- ==========================================================================
+                 ÁREA PREPARADA PARA PASARELA DE PAGO (Checkout modular)
+                 ========================================================================== -->
+            <!--
+            <div class="checkout-module text-center" style="margin-top: 64px; padding-top: 40px; border-top: 1px solid var(--border-color);">
+                <h4 style="margin-bottom: 24px; color: var(--text-primary);">Adquiere Green Kore ahora</h4>
+                <div id="payment-gateway-container">
+                    // Aquí se insertaría el script/botón de Stripe o PayPal:
+                    // <script src="https://js.stripe.com/v3/"></script>
+                    // <button id="checkout-button" class="btn">Comprar Ahora</button>
+                </div>
+            </div>
+            -->
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="container">
+            <p>info@auxislab.com | &copy; 2026 Auxis Lab. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+</body>
+
+</html>
