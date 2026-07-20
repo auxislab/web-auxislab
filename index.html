@@ -39,6 +39,10 @@
         body {
             font-family: var(--font-family);
             background-color: var(--bg-color);
+            background-image: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url('Fondo_main_01.webp');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
             color: var(--text-primary);
             line-height: 1.6;
             -webkit-font-smoothing: antialiased;
@@ -146,8 +150,9 @@
         }
 
         .hero-logo {
-            width: 80px;
-            height: 80px;
+            width: 240px;
+            height: 240px;
+            max-width: 100%;
             margin-bottom: 40px;
             border-radius: 16px;
             object-fit: cover;
@@ -155,6 +160,13 @@
             border: 1px solid var(--border-color);
             /* Animación suave de entrada */
             animation: fadeInDown 1s ease forwards;
+        }
+
+        @media (max-width: 768px) {
+            .hero-logo {
+                width: 120px;
+                height: 120px;
+            }
         }
 
         .hero h1 {
@@ -479,7 +491,7 @@
     <!-- FOOTER -->
     <footer>
         <div class="container">
-            <p>info@auxislab.com | &copy; 2026 Auxis Lab. Todos los derechos reservados.</p>
+            <p><a href="mailto:hablemos@auxislab.com" style="color: inherit; text-decoration: none;">hablemos@auxislab.com</a> | &copy; 2026 Auxis Lab. Todos los derechos reservados.</p>
         </div>
     </footer>
 
